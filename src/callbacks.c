@@ -60,11 +60,6 @@ void on_drawingarea1_scroll_event(GtkWidget *widget, GdkEventScroll *event, gpoi
                 case GDK_SCROLL_DOWN:
                         fontSizeFactorG-=0.1;  //decrease factor
                         break;
-
-                case GDK_SCROLL_LEFT:
-                case GDK_SCROLL_RIGHT:
-                case GDK_SCROLL_SMOOTH:
-                        break;
         }
         gtk_widget_queue_draw(widget);  //force redraw the widget
 }
@@ -180,4 +175,22 @@ gboolean pari_UpdateImageAreas(gpointer data)
         GtkWidget *da1 = GTK_WIDGET(gtk_builder_get_object(builderG, "drawingarea1"));
         gtk_widget_queue_draw(da1);
         return TRUE;
+}
+
+//copy from IplImage to pixbuf and paint DA
+void pari_RefreshDrawingArea( char * widgetName, IplImage *img)
+{
+        GtkWidget *da=GTK_WIDGET(gtk_builder_get_object (builderG, widgetName));
+        if( ! da )
+        {
+          printf("failed\n");
+          return;
+        }
+        GdkPixbuf *pix=pari_ConvertOpenCv2Gtk(img, da->allocation.width, da->allocation.height );
+        cairo_t *cr = gdk_cairo_create (gtk_widget_get_window(da));
+        gdk_cairo_set_source_pixbuf(cr, pix, 0, 0);
+        cairo_paint(cr);
+        cairo_fill(cr);
+        cairo_destroy(cr);
+        g_object_unref(pix);  //free the pixbuf...
 }

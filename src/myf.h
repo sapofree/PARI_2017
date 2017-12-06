@@ -1,3 +1,6 @@
+#ifndef _MYF_H
+#define _MYF_H
+
 #include <cairo.h>
 #include <gtk/gtk.h>
 
@@ -32,3 +35,5 @@ typedef struct {
 #endif
 
 #include "prototypes.h"
+
+#endif /* _MYF_H */
