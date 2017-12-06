@@ -1,4 +1,0 @@
-/home/sapofree/Aula12/PARI_2017/build/CMakeFiles/rebuild_cache.dir
-/home/sapofree/Aula12/PARI_2017/build/CMakeFiles/cpfiles.dir
-/home/sapofree/Aula12/PARI_2017/build/CMakeFiles/edit_cache.dir
-/home/sapofree/Aula12/PARI_2017/build/CMakeFiles/myf.dir
