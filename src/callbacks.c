@@ -16,6 +16,24 @@
 
 #include "myf.h"
 
+/**
+ * @brief  Callback to catch CTRL-C
+ */
+void InterceptCTRL_C(int a)
+{
+	g_print("Sair por CTRL-C\n");
+	gtk_main_quit();
+}
+
+/**
+ * @brief  Callback to close with 'x' button
+ */
+void pari_delete_event(GtkWidget * window, GdkEvent * event, gpointer data)
+{
+        puts("Pedido de delete event");
+	gtk_main_quit();
+}
+
 void on_drawingarea1_draw(GtkWidget *widget, cairo_t *cr, gpointer user_data)
 {
         p_RedrawText(cr);
@@ -154,4 +172,12 @@ gboolean p_ForceRefreshDA(gpointer user_data)
         gtk_widget_queue_draw(da);  //make draw the widget
 
         return TRUE;  //continue running
+}
+
+gboolean pari_UpdateImageAreas(gpointer data)
+{
+        //generate an expose event (draw event) on drawingarea1
+        GtkWidget *da1 = GTK_WIDGET(gtk_builder_get_object(builderG, "drawingarea1"));
+        gtk_widget_queue_draw(da1);
+        return TRUE;
 }
